@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shop.retrocameras | Vintage Digicams</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card: #161616;
+            --neon: #00f3ff;
+            --pink: #ff007f;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+        /* Navbar */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 26px; 
+            color: var(--white); 
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+        .logo span { color: var(--neon); }
+        
+        .cart-btn {
+            background: linear-gradient(45deg, var(--pink), #ff5e00);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), var(--bg)), 
+                        url('https://images.unsplash.com/photo-1495707902641-75cac588d2e9?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(35px, 8vw, 60px); margin-bottom: 10px; }
+        .hero p { color: var(--neon); font-weight: 300; letter-spacing: 2px; text-transform: uppercase; font-size: 14px; }
+
+        /* Shop Grid */
+        .container { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+
+        .card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            transition: 0.4s;
+            border: 1px solid #222;
+            text-align: center;
+        }
+
+        .card:hover { transform: translateY(-10px); border-color: var(--neon); box-shadow: 0 0 25px rgba(0, 243, 255, 0.15); }
+
+        .img-container {
+            width: 100%;
+            height: 380px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Për të mos u prerë fotot e kamerave */
+        }
+
+        .card h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 8px; }
+        .price-tag { font-size: 24px; color: var(--white); font-weight: bold; margin-bottom: 20px; display: block; }
+
+        .buy-btn {
+            width: 100%;
+            padding: 15px;
+            background: none;
+            border: 2px solid var(--neon);
+            color: var(--neon);
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .buy-btn:hover { background: var(--neon); color: var(--bg); }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center; align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: #111;
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            border: 1px solid var(--pink);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .insta-link {
+            display: block;
+            margin-top: 25px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: white;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 10px 20px rgba(220, 39, 67, 0.3);
+        }
+
+        footer { text-align: center; padding: 60px; border-top: 1px solid #222; margin-top: 50px; }
+        footer a { color: var(--neon); text-decoration: none; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="https://www.instagram.com/shop.retrocameras?igsh=NzQwMzc2eGlrNWt1&utm_source=qr" target="_blank" class="logo">shop.<span>retrocameras</span></a>
+        <button class="cart-btn" onclick="openCart()">🛒 Shporta (<span id="cart-count">0</span>)</button>
+    </nav>
+
+    <div class="hero">
+        <p>Premium Vintage Selection</p>
+        <h1>Capture the Soul</h1>
+    </div>
+
+    <div class="container">
+        <div class="grid">
+            
+            <div class="card">
+                <div class="img-container">
+                    <img src="IMG_4740.jpg" alt="Olympus Black">
+                </div>
+                <h3>Olympus SZ-24 Black</h3>
+                <span class="price-tag">130 Euro</span>
+                <button class="buy-btn" onclick="addToCart('Olympus SZ-24', 130)">Shto në Shportë</button>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="IMG_4739.jpg" alt="Samsung White">
+                </div>
+                <h3>Samsung S1070 White</h3>
+                <span class="price-tag">60 Euro</span>
+                <button class="buy-btn" onclick="addToCart('Samsung White', 60)">Shto në Shportë</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color: var(--white); font-family: 'Playfair Display', serif; font-size: 32px;">Gati për porosi?</h2>
+            <p id="modal-text" style="margin: 20px 0; color: #aaa;"></p>
+            <h3 id="modal-total" style="color: var(--neon); font-size: 28px;"></h3>
+            
+            <a href="https://www.instagram.com/shop.retrocameras?igsh=NzQwMzc2eGlrNWt1&utm_source=qr" target="_blank" class="insta-link">
+                Dërgo DM në Instagram
+            </a>
+            
+            <button onclick="closeModal()" style="background:none; border:none; color:#555; margin-top:20px; cursor:pointer; font-weight: bold;">MBYLL</button>
+        </div>
+    </div>
+
+    <footer>
+        <a href="https://www.instagram.com/shop.retrocameras?igsh=NzQwMzc2eGlrNWt1&utm_source=qr" target="_blank">@shop.retrocameras</a>
+        <p style="margin-top: 15px; font-size: 12px; color: #444;">&copy; 2026 | Digital Vintage Experience</p>
+    </footer>
+
+    <script>
+        let count = 0;
+        let total = 0;
+
+        function addToCart(name, price) {
+            count++;
+            total += price;
+            document.getElementById('cart-count').innerText = count;
+            showModal(`Shtuat me sukses ${name} në shportë!`);
+        }
+
+        function openCart() {
+            if(count === 0) showModal("Shporta është momentalisht bosh.");
+            else showModal(`Ju keni ${count} artikuj në pritje.`);
+        }
+
+        function showModal(msg) {
+            document.getElementById('modal-text').innerText = msg;
+            document.getElementById('modal-total').innerText = total > 0 ? "Totali: " + total + " Euro" : "";
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        // Mbyllja me klikim jashtë kutisë
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('cartModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
